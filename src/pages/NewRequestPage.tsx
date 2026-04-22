@@ -1,4 +1,3 @@
-// pages/NewRequestPage.tsx
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,82 +8,108 @@ import {
     step2Schema,
     step3Schema,
     step4Schema,
+    type RequestFormValues
 } from "@/schemas/requestSchemas";
 
-import { Stepper } from "@/components/stepper/Stepper";
-import { Step2NationalId } from "@/components/steps/Step2NationalId";
-import { Step1Personal } from "@/components/steps/Step1Personal";
-// import other steps...
+import { Stepper } from "@/components/new-request/Stepper";
+import { Step1Personal } from "@/components/new-request/Step1Personal";
+import { Step2NationalId } from "@/components/new-request/Step2NationalId";
+import { Step3LandInfo } from "@/components/new-request/Step3LandInfo";
+import { Step4Attachments } from "@/components/new-request/Step4Attachments";
 
-const schemas = [step1Schema, step2Schema, step3Schema, step4Schema];
+const steps = [
+    { title: "المعلومات الشخصية", schema: step1Schema },
+    { title: "الهوية الوطنية", schema: step2Schema },
+    { title: "قطعة الأرض", schema: step3Schema },
+    { title: "المرفقات", schema: step4Schema },
+];
 
 export default function NewRequestPage() {
-    const [step, setStep] = useState(0);
+    const [currentStep, setCurrentStep] = useState(0);
 
-    const methods = useForm({
-        resolver: zodResolver(schemas[step]),
-        mode: "onChange",
+    const methods = useForm<RequestFormValues>({
+        resolver: zodResolver(steps[currentStep].schema),
+        mode: "onTouched",
     });
 
+    const { trigger, handleSubmit } = methods;
+
     const onNext = async () => {
-        const valid = await methods.trigger();
-        if (!valid) {
-            toast.error("يرجى التحقق من الحقول");
+        const isValid = await trigger();
+        if (!isValid) {
+            toast.error("يرجى التأكد من صحة المعلومات المدخلة.");
             return;
         }
 
-        if (step < 3) {
-            setStep(step + 1);
+        if (currentStep < steps.length - 1) {
+            setCurrentStep((prev) => prev + 1);
+            window.scrollTo(0, 0);
         } else {
-            toast.success("تم إرسال الطلب بنجاح");
+            handleSubmit(onSubmit)();
         }
     };
 
-    const onPrev = () => setStep((s) => s - 1);
+    const onPrev = () => {
+        if (currentStep > 0) {
+            setCurrentStep((prev) => prev - 1);
+            window.scrollTo(0, 0);
+        }
+    };
+
+    const onSubmit = (data: RequestFormValues) => {
+        console.log("Form Submitted:", data);
+        toast.success("تم إرسال الطلب بنجاح!");
+        // Here you would make your API call
+    };
 
     return (
-        <FormProvider {...methods}>
-            <div className="max-w-5xl mx-auto py-10">
+        <div className="min-h-screen bg-slate-50 py-10" dir="rtl">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <h1 className="text-3xl font-bold text-green-800 text-center mb-2">
-                    طلب استصلاح الأراضي الزراعية
-                </h1>
+                <div className="text-center mb-10">
+                    <h1 className="text-3xl font-bold text-green-900 mb-3">
+                        طلب استصلاح الأراضي الزراعية
+                    </h1>
+                    <p className="text-slate-500 max-w-xl mx-auto">
+                        يرجى تعبئة النموذج التالي بدقة لتقديم طلب استصلاح الأراضي. تأكد من إرفاق جميع الوثائق المطلوبة في المرحلة الأخيرة.
+                    </p>
+                </div>
 
-                <Stepper current={step} />
+                {/* Stepper */}
+                <Stepper currentStep={currentStep} steps={steps.map(s => s.title)} />
 
-                {/* Content */}
-                <div className="grid grid-cols-3 gap-6">
-                    {/* Left Panel */}
-                    <div className="col-span-1 bg-green-50 p-4 rounded-xl">
-                        <h3 className="font-bold mb-2">توجيهات هامة</h3>
-                        <ul className="text-sm space-y-2">
-                            <li>تأكد من صحة المعلومات</li>
-                            <li>الرقم الوطني يجب أن يكون صحيح</li>
-                        </ul>
-                    </div>
+                {/* Form Content */}
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-10 mb-8">
+                    <FormProvider {...methods}>
+                        <form onSubmit={(e) => e.preventDefault()}>
+                            {currentStep === 0 && <Step1Personal />}
+                            {currentStep === 1 && <Step2NationalId />}
+                            {currentStep === 2 && <Step3LandInfo />}
+                            {currentStep === 3 && <Step4Attachments />}
+                        </form>
+                    </FormProvider>
+                </div>
 
-                    {/* Form */}
-                    <div className="col-span-2 bg-white p-6 rounded-xl">
-                        {step === 0 && <Step1Personal />}
-                        {step === 1 && <Step2NationalId />}
-                        {step === 2 && <div>Step3</div>}
-                        {step === 3 && <div>Step4</div>}
+                {/* Actions Navigation */}
+                <div className="flex items-center justify-between mt-8">
+                    <button
+                        type="button"
+                        onClick={onPrev}
+                        disabled={currentStep === 0}
+                        className="px-6 py-3 rounded-xl font-medium transition-colors border border-slate-300 text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        السابق
+                    </button>
 
-                        {/* Actions */}
-                        <div className="flex justify-between mt-6">
-                            {step > 0 && (
-                                <button onClick={onPrev} className="btn-secondary">
-                                    السابق
-                                </button>
-                            )}
-
-                            <button onClick={onNext} className="btn-primary">
-                                {step === 3 ? "إرسال" : "التالي"}
-                            </button>
-                        </div>
-                    </div>
+                    <button
+                        type="button"
+                        onClick={onNext}
+                        className="px-8 py-3 rounded-xl font-bold transition-all bg-green-700 text-white hover:bg-green-800 shadow-sm hover:shadow active:scale-95"
+                    >
+                        {currentStep === steps.length - 1 ? "إرسال الطلب" : "التالي"}
+                    </button>
                 </div>
             </div>
-        </FormProvider>
+        </div>
     );
 }

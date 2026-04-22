@@ -31,3 +31,16 @@ export const step4Schema = z.object({
     residenceCard: z.any(),
     landContract: z.any(),
 });
+
+export const requestSchema = z.object({
+    ...step1Schema.shape,
+    ...step2Schema.shape,
+    ...step3Schema.shape,
+    ...step4Schema.shape,
+});
+
+export type Step1FormValues = z.infer<typeof step1Schema>;
+export type Step2FormValues = z.infer<typeof step2Schema>;
+export type Step3FormValues = z.infer<typeof step3Schema>;
+export type Step4FormValues = z.infer<typeof step4Schema>;
+export type RequestFormValues = z.infer<typeof requestSchema>;
