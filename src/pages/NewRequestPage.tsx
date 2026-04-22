@@ -28,7 +28,7 @@ export default function NewRequestPage() {
     const [currentStep, setCurrentStep] = useState(0);
 
     const methods = useForm<RequestFormValues>({
-        resolver: zodResolver(steps[currentStep].schema),
+        resolver: zodResolver(steps[currentStep].schema) as any,
         mode: "onTouched",
     });
 

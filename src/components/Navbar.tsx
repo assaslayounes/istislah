@@ -35,10 +35,10 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:block text-right">
               <p className="text-sm font-bold text-white leading-tight">
-                البوابة الوطنية لاستصلاح الأراضي
+                البوابة الولائية لاستصلاح الأراضي
               </p>
               <p className="text-xs text-primary-300 leading-tight">
-                وزارة الفلاحة والتنمية الريفية
+                ولاية الوادي
               </p>
             </div>
           </Link>

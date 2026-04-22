@@ -17,24 +17,23 @@ const contactItems: ContactInfo[] = [
     icon: <MapPin className="w-6 h-6" />,
     title: 'المقر الرئيسي',
     lines: [
-      'وزارة الفلاحة والتنمية الريفية',
-      '12 شارع الفقيد عبدالرحمن، الجزائر العاصمة',
+      'ولاية الوادي',
+      'حي 17 أكتوبر',
     ],
   },
   {
     icon: <Phone className="w-6 h-6" />,
     title: 'مركز الاتصال',
     lines: [
-      'الرقم الأخضر: 10 30',
-      'الهاتف: 213+ (0) 89 67 45 23',
+      ' الهاتف 1: 032 14 17 17 ',
+      'الهاتف 2: 032 14 18 18',
     ],
   },
   {
     icon: <Mail className="w-6 h-6" />,
     title: 'الدعم التقني',
     lines: [
-      'contact@madr.gov.dz',
-      'support@mise-en-valeur@gov.dz',
+      'dtn39@gmail.com',
     ],
   },
 ];
@@ -88,7 +87,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-xs text-primary-400">
-            © 2024 الجمهورية الجزائرية الديمقراطية الشعبية | وزارة الفلاحة والتنمية الريفية
+            © 2026 الجمهورية الجزائرية الديمقرطية الشعية |    ولاية الوادي
           </p>
         </div>
       </div>
