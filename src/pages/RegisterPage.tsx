@@ -30,8 +30,8 @@ export default function RegisterPage() {
             title="إنشاء حساب جديد"
             subtitle="انضم إلى المنصة الرقمية"
         >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <FormInput
                         label="الاسم"
                         {...register("firstName")}
