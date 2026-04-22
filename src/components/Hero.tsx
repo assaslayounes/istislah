@@ -1,4 +1,4 @@
-import { PlusCircle, Search, TrendingUp, Users, BarChart3 } from 'lucide-react';
+import { Search, TrendingUp, Users, BarChart3 } from 'lucide-react';
 import { toast } from 'sonner';
 import StatsCard from './StatsCard';
 import { Link } from 'react-router-dom';
@@ -57,7 +57,6 @@ export default function Hero() {
                 className="group flex items-center gap-2.5 px-6 py-3 bg-white text-primary-800 font-bold text-sm rounded-[var(--radius-button)] hover:bg-primary-50 transition-all duration-200 shadow-hero hover:shadow-card-hover cursor-pointer"
               >
                 <Link to="/new-request">
-                  <PlusCircle className="w-[18px] h-[18px] transition-transform group-hover:scale-110" />
                   إيداع طلب جديد
                 </Link>
               </button>

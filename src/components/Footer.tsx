@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
+
 import {
   MapPin,
   Phone,
   Mail,
-  Sprout,
 } from 'lucide-react';
 
 interface ContactInfo {
@@ -38,18 +37,18 @@ const contactItems: ContactInfo[] = [
   },
 ];
 
-const footerLinks = [
+/*const footerLinks = [
   { label: 'شروط الإستخدام', href: '#' },
   { label: 'سياسة الخصوصية', href: '#' },
   { label: 'دليل المستخدم', href: '#' },
   { label: 'الدعم الفني', href: '#' },
-];
+];*/
 
 export default function Footer() {
   return (
     <footer className="bg-primary-900 text-white">
       {/* Contact Strip */}
-      <div className="bg-primary-800/50 border-b border-white/10">
+      <div className="bg-primary-800/50 border-b border-white/10 py-6 ">
         <div className="section-container py-10 lg:py-14">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {contactItems.map((item) => (
@@ -60,37 +59,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Footer */}
-      <div className="section-container py-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Logo */}
-          <div className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/10">
-              <Sprout className="w-4 h-4 text-primary-200" />
-            </div>
-            <span className="text-sm font-semibold text-primary-200">
-              استصلاح
-            </span>
-          </div>
 
-          {/* Links */}
-          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {footerLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                className="text-xs text-primary-300 hover:text-white transition-colors no-underline"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Copyright */}
-          <p className="text-xs text-primary-400">
-            © 2026 الجمهورية الجزائرية الديمقرطية الشعية |    ولاية الوادي
-          </p>
-        </div>
-      </div>
     </footer>
   );
 }
