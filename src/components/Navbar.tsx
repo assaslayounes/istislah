@@ -140,10 +140,16 @@ export default function Navbar() {
             </NavLink>
           ))}
           <Link
-            to="/"
+            to="/register"
             className="block text-center mt-3 px-4 py-2.5 text-sm font-semibold text-primary-900 bg-white rounded-lg hover:bg-primary-50 transition-colors no-underline"
           >
-            حسابي
+            تسجيل
+          </Link>
+          <Link
+            to="/login"
+            className="block text-center mt-3 px-4 py-2.5 text-sm font-semibold text-primary-900 bg-white rounded-lg hover:bg-primary-50 transition-colors no-underline"
+          >
+            دخول
           </Link>
         </div>
       </div>
