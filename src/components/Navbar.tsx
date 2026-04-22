@@ -141,12 +141,14 @@ export default function Navbar() {
           ))}
           <Link
             to="/register"
+            onClick={() => setMobileMenuOpen(false)}
             className="block text-center mt-3 px-4 py-2.5 text-sm font-semibold text-primary-900 bg-white rounded-lg hover:bg-primary-50 transition-colors no-underline"
           >
             تسجيل
           </Link>
           <Link
             to="/login"
+            onClick={() => setMobileMenuOpen(false)}
             className="block text-center mt-3 px-4 py-2.5 text-sm font-semibold text-primary-900 bg-white rounded-lg hover:bg-primary-50 transition-colors no-underline"
           >
             دخول
